@@ -1,0 +1,45 @@
+<!--
+  Generated template for the HomePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>
+            <img src="assets/images/pokeball.png" alt=""
+                 style="width: 18px;height: 18px;vertical-align: middle;"/>
+            <strong>Pokemon Test</strong>
+        </ion-title>
+    </ion-navbar>
+
+    <ion-toolbar no-border-top>
+        <ion-searchbar color="primary"
+                       [(ngModel)]="searchQuery"
+                       placeholder="Search"
+        ></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <loader *ngIf="!pokemonList.length" text="Loading Pokedex..."></loader>
+    <div *ngIf="pokemonList.length">
+
+        <ion-list>
+            <pokemon-list-item
+              *ngFor="let pokemon of getPokemons()"
+              [pokemon]="pokemon"
+              (clicked)=goToPokemonDetail($event) (keydown.enter)="add()" placeholder="item to add">
+            </pokemon-list-item>
+            <li *ngFor="let item of items | async">
+      <button (click)="favorite(item.$value)">[fav]</button><button (click)="delete(item)"> X </button><span>{{item.$value}}</span>
+    </li>
+    
+        </ion-list>
+        
+    </div>
+</ion-content>
+
